@@ -4,7 +4,7 @@
   "description": "Automatically integrate my BOJ submissions to GitHub",
   "homepage_url": "https://github.com/seokbong131/BaekjoonHub_customization",
   "version": "1.2.8",
-  "author": "flaxinger",
+  "author": "seokbong131",
   "action": {
     "default_icon": "assets/thumbnail.png",
     "default_popup": "popup.html"
