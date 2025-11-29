@@ -44,7 +44,9 @@ async function makeDetailMessageAndReadme(data) {
   const { problemId, title, level, code, language, memory, runtime } = data;
   
   // 1. 폴더 경로 및 파일 이름
-  const directory = `algorithm/Baekjoon/${language}/${level}`;
+  const noBlankLanguage = language.replace(/\s/g, '_');
+  const noBlankLevel = level.replace(/\s/g, '_');
+  const directory = `algorithm/Baekjoon/${noBlankLanguage}/${noBlankLevel}`;
   
   const extension = languages[language];
   const fileName = `${problemId}.${extension}`;
