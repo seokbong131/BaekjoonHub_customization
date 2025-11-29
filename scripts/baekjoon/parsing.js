@@ -36,39 +36,25 @@ async function findData(data) {
 }
  
 /**
- * 문제의 상세 정보를 가지고, 문제의 업로드할 디렉토리, 파일명, 커밋 메시지, 문제 설명을 파싱하여 반환합니다.
+ * 문제의 상세 정보를 가지고 업로드할 폴더 경로, 파일 이름, 커밋 메시지를 파싱하여 반환합니다.
  * @param {Object} data
  * @returns {Object} { directory, fileName, message, readme, code }
  */
 async function makeDetailMessageAndReadme(data) {
-  const { problemId, submissionId, result, title, level, problem_tags,
-    problem_description, problem_input, problem_output, submissionTime,
-    code, language, memory, runtime } = data;
-  const score = parseNumberFromString(result);
-  const directory = await getDirNameByOrgOption(
-    `백준/${level.replace(/ .*/, '')}/${problemId}. ${convertSingleCharToDoubleChar(title)}`,
-    langVersionRemove(language, null)
-  );
-  const message = `[${level}] Title: ${title}, Time: ${runtime} ms, Memory: ${memory} KB`
-    + ((isNaN(score)) ? ' ' : `, Score: ${score} point `) // 서브 태스크가 있는 문제로, 점수가 있는 경우 점수까지 커밋 메시지에 표기
-    + `-BaekjoonHub`;
-  const category = problem_tags.join(', ');
-  const fileName = `${convertSingleCharToDoubleChar(title)}.${languages[language]}`;
-  const dateInfo = submissionTime ?? getDateString(new Date(Date.now()));
-  // prettier-ignore-start
-  const readme = `# [${level}] ${title} - ${problemId} \n\n`
-    + `[문제 링크](https://www.acmicpc.net/problem/${problemId}) \n\n`
-    + `### 성능 요약\n\n`
-    + `메모리: ${memory} KB, `
-    + `시간: ${runtime} ms\n\n`
-    + `### 분류\n\n`
-    + `${category || "Empty"}\n\n` + (!!problem_description ? ''
-    + `### 제출 일자\n\n`
-    + `${dateInfo}\n\n`
-      + `### 문제 설명\n\n${problem_description}\n\n`
-      + `### 입력 \n\n ${problem_input}\n\n`
-      + `### 출력 \n\n ${problem_output}\n\n` : '');
-  // prettier-ignore-end
+  const { problemId, title, level, code, language, memory, runtime } = data;
+  
+  // 1. 폴더 경로 및 파일 이름
+  const directory = `algorithm/Baekjoon/${language}/${level}`;
+  
+  const extension = languages[language];
+  const fileName = `${problemId}.${extension}`;
+
+  // 2. 커밋 메시지
+  const message = `"${title}" (Memory: ${memory} KB, Time: ${runtime} ms)`;
+  
+  // 3. README
+  const readme = undefined;
+
   return {
     directory,
     fileName,
