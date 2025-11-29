@@ -58,7 +58,8 @@ function toastThenStopLoader(toastMessage, errorMessage){
 async function beginUpload(bojData) {
   bojData = preProcessEmptyObj(bojData);
   log('bojData', bojData);
-  if (isNotEmpty(bojData)) {
+  if (bojData && bojData.code) {
+    console.log('Enter the "if statement" of beginUpload function.');
     const stats = await getStats();
     const hook = await getHook();
 
