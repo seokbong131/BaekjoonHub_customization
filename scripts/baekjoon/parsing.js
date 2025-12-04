@@ -53,8 +53,8 @@ async function makeDetailMessageAndReadme(data) {
 
   // 2. 커밋 메시지
   const score = parseNumberFromString(result);
-  const message = `"${title}" (Memory: ${memory} KB, Time: ${runtime} ms)`
-                  + ((isNaN(score)) ? '' : `, Score: ${score}`);
+  const message = `"${title}" (Memory: ${memory} KB, Time: ${runtime} ms`
+                  + ((isNaN(score)) ? ')' : `, Score: ${score})`);
   
   // 3. README
   const readme = undefined;
