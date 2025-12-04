@@ -57,7 +57,7 @@ async function makeDetailMessageAndReadme(data) {
                   + ((isNaN(score)) ? ')' : `, Score: ${score})`);
   
   // 3. README
-  const readme = undefined;
+  const readme = null;
 
   return {
     directory,
