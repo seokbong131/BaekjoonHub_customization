@@ -41,7 +41,7 @@ async function findData(data) {
  * @returns {Object} { directory, fileName, message, readme, code }
  */
 async function makeDetailMessageAndReadme(data) {
-  const { problemId, title, level, code, language, memory, runtime } = data;
+  const { problemId, result, title, level, code, language, memory, runtime } = data;
   
   // 1. 폴더 경로 및 파일 이름
   const noBlankLanguage = language.replace(/\s/g, '_');
@@ -52,7 +52,9 @@ async function makeDetailMessageAndReadme(data) {
   const fileName = `${problemId}.${extension}`;
 
   // 2. 커밋 메시지
-  const message = `"${title}" (Memory: ${memory} KB, Time: ${runtime} ms)`;
+  const score = parseNumberFromString(result);
+  const message = `"${title}" (Memory: ${memory} KB, Time: ${runtime} ms)`
+                  + ((isNaN(score)) ? '' : `, Score: ${score}`);
   
   // 3. README
   const readme = undefined;
